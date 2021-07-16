@@ -1,5 +1,3 @@
-import datetime
-
 from mysql.connector import connect, Error
 
 
@@ -30,7 +28,8 @@ class DBHelper:
                 for result in cursor.stored_results():
                     answer.extend(result.fetchall())
             except Error as e:
-                print(e)
+                log = ''.join(list(str(e)))
+                answer.append(log)
             finally:
                 cursor.close()
                 connection.commit()
@@ -84,19 +83,19 @@ class DBHelper:
     def list_message_senders(self):
         return self.__call_procedure('list_message_senders', (0,))
 
-    def receive_Ava(self):
+    def receive_ava(self):
         return self.__call_procedure('receive_Ava', (0,))
 
     def receive_ava_of_a_special_symbol(self, text):
         return self.__call_procedure('receive_ava_of_a_special_symbol', (text, 0))
 
-    def receive_count_of_Like(self, select_ava_id, select_user_name):
+    def receive_count_of_like(self, select_ava_id, select_user_name):
         return self.__call_procedure('receive_count_of_Like', (select_ava_id, select_user_name, 0))
 
     def receive_list_message_of_user(self):
         return self.__call_procedure('receive_list_message_of_user', (0,))
 
-    def receive_list_of_Like(self, select_ava_id, select_user_name):
+    def receive_list_of_like(self, select_ava_id, select_user_name):
         return self.__call_procedure('receive_list_of_Like', (select_ava_id, select_user_name, 0))
 
     def receive_popular_ava(self):
@@ -115,34 +114,29 @@ class DBHelper:
         return self.__call_procedure('stop_following', (followed_user_name, 0))
 
 
-s1 = DBHelper(host="localhost",
-              user="root",
-              password="",
-              database="db_project")
-
-print(s1.user_log('USER4', 'USER0010', 1))
-print(s1.check_login())
-print(s1.add_hashtag('#ABCu0'))
-print(s1.add_hashtag_to_ava(3, '#ABCu3'))
-print(s1.add_user('FN3', 'LN3', 'USER3', 'USER0003',
-                  datetime.datetime(2000, 10, 13, 10, 0, 0), datetime.datetime.now(), 'i am FN3'))
-
-print(s1.ava_comments('USER1', 2, 'this ok!'))
-print(s1.block_user('USER4'))
-print(s1.follow_user('USER3'))
-print(s1.get_ava_comments(2, 'USER4'))
-print(s1.get_login_user())
-print(s1.get_the_activity_of_the_followers())
-print(s1.get_user_activity('USER4'))
-print(s1.like_ava(1, 'USER1'))
-print(s1.list_message_senders())
-print(s1.receive_Ava())
-print(s1.receive_ava_of_a_special_symbol('#ABCui'))
-print(s1.receive_count_of_Like(1, 'USER1'))
-print(s1.receive_list_message_of_user())
-print(s1.receive_list_of_Like(1, 'USER1'))
-print(s1.receive_popular_ava())
-print(s1.send_ava('USER1', 3, datetime.datetime.now()))
-print(s1.send_message('USER1', 'HELOO LSDGO', datetime.datetime.now()))
-print(s1.stop_block('USER3'))
-print(s1.stop_following('USER3'))
+# print(s1.user_log('USER4', 'USER0010', 1))
+# print(s1.check_login())
+# print(s1.add_hashtag('#ABCu0'))
+# print(s1.add_hashtag_to_ava(3, '#ABCu3'))
+# print(s1.add_user('FN3', 'LN3', 'USER3', 'USER0003',
+#                   datetime.datetime(2000, 10, 13, 10, 0, 0), datetime.datetime.now(), 'i am FN3'))
+#
+# print(s1.ava_comments('USER1', 2, 'this ok!'))
+# print(s1.block_user('USER4'))
+# print(s1.follow_user('USER3'))
+# print(s1.get_ava_comments(2, 'USER4'))
+# print(s1.get_login_user())
+# print(s1.get_the_activity_of_the_followers())
+# print(s1.get_user_activity('USER4'))
+# print(s1.like_ava(1, 'USER1'))
+# print(s1.list_message_senders())
+# print(s1.receive_Ava())
+# print(s1.receive_ava_of_a_special_symbol('#ABCui'))
+# print(s1.receive_count_of_Like(1, 'USER1'))
+# print(s1.receive_list_message_of_user())
+# print(s1.receive_list_of_Like(1, 'USER1'))
+# print(s1.receive_popular_ava())
+# print(s1.send_ava('USER1', 3, datetime.datetime.now()))
+# print(s1.send_message('USER1', 'HELOO LSDGO', datetime.datetime.now()))
+# print(s1.stop_block('USER3'))
+# print(s1.stop_following('USER3'))
